@@ -1,0 +1,36 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+<nav>
+    <div>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'app1:watchlist_index' %}">Watchlist</a>
+            {% if request.user.first_name and request.user.last_name %}
+                <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+            {% else %}
+                <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.username }}</a>
+            {% endif %}
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'app1:add_item' %}">Add to watchlist</a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}">Log out</a>
+        {% endif %}
+        {% if request.user.is_authenticated is False %}
+            <a href="{% url 'userprofile:new_account' %}">Register</a>
+        {% endif %}
+    </div>
+</nav>
+<div>
+    {% block content %}
+
+    {% endblock %}
+</div>
+</body>
+
+</html>
