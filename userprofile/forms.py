@@ -1,11 +1,18 @@
 from django import forms
-
-# from userprofile.models import UserExtend
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
-class NewAccountForm(forms.ModelForm):
+class NewAccountForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = User
-        # fields = ['first_name', 'last_name', 'email', 'username', 'password']
-        fields = ['first_name', 'last_name', 'email', 'username']
+        fields = ['username', 'email']
+
+    def save(self, commit=True):
+        user = super(UserCreationForm, self).save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user

@@ -22,7 +22,7 @@ class Scrape(models.Model):
     item = models.ForeignKey('WatchItem', on_delete=models.CASCADE)
     price = models.PositiveIntegerField()
     date = models.DateField()
-
+    time = models.TimeField(default=None)
 
     def __str__(self):
         return f"{self.price}: {self.date}"

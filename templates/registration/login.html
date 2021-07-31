@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="../static/uikit.css" />
 
 {% block content %}
-    <form method="POST">
+    <form method="POST" class="uk-form-horizontal">
         {% csrf_token %}
         <label>Username</label>
         <input type="text" name="username">

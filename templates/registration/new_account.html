@@ -4,11 +4,9 @@
 
 <body>
     {% block content %}
-        <form method="POST">
+        <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
-            {% for field in form %}
-                <div>{{ field.label }} {{ field }} </div>
-            {% endfor %}
+            <div>{{ form }}</div>
             <button type="submit">Register</button>
         </form>
     {% endblock %}

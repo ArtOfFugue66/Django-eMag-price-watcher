@@ -1,28 +1,44 @@
+{% load static %}
+
 <html>
 
 <head>
-
+    <link rel="stylesheet" type="text/css" href="{% static 'uikit.css' %}" />
 </head>
 
 <body>
-<nav>
-    <div>
+<nav class="uk-navbar uk-navbar-container" uk-navbar="mode: click">
+    <div class="uk-navbar-left">
         {% if request.user.is_authenticated %}
-            <a href="{% url 'app1:watchlist_index' %}">Watchlist</a>
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"> <a class="" href="{% url 'app1:watchlist_index' %}">Watchlist</a> </li>
+            </ul>
             {% if request.user.first_name and request.user.last_name %}
-                <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+            <ul class="uk-navbar-nav">
+                <li class="uk-active">
+                    <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.first_name }} {{ request.user.last_name }}</a>
+                </li>
+            </ul>
             {% else %}
-                <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.username }}</a>
+                <ul class="uk-navbar-nav">
+                    <li class="uk-active"> <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.username }}</a> </li>
+                </ul>
             {% endif %}
         {% endif %}
         {% if request.user.is_authenticated %}
-            <a href="{% url 'app1:add_item' %}">Add to watchlist</a>
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"> <a href="{% url 'app1:add_item' %}">Add to watchlist</a> </li>
+            </ul>
         {% endif %}
         {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}">Log out</a>
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"> <a href="{% url 'logout' %}">Log out</a> </li>
+            </ul>
         {% endif %}
         {% if request.user.is_authenticated is False %}
-            <a href="{% url 'userprofile:new_account' %}">Register</a>
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"> <a href="{% url 'userprofile:new_account' %}">Register</a> </li>
+            </ul>
         {% endif %}
     </div>
 </nav>
