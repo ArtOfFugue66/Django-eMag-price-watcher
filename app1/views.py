@@ -34,3 +34,12 @@ class WatchlistUpdateItem(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('app1:watchlist_index')
 
+
+class ScrapeAddInfo(CreateView):
+    model = Scrape
+    fields = '__all__'
+    template_name = 'app1/scrape_page.html'
+
+    # def get_success_url(self):
+    #     return reverse('app1:watchlist_index')
+

@@ -22,7 +22,13 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 
 
 def signup_view(request):
-    form = NewAccountForm
+    if request.POST:
+        form = NewAccountForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = NewAccountForm()
+
     return render(request, 'registration/new_account.html', {'form': form})
 
 

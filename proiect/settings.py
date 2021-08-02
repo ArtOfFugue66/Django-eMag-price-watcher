@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app1',
-    'userprofile'
+    'app1.apps.App1Config',
+    'userprofile',
+    'django_celery_results',
 ]
 
 # Run on every request
@@ -132,6 +133,20 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+# Celery settings
+# https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
+
+CELERY_BROKER_URL = 'amqp://127.0.0.1:5672'
+CELERY_RESULT_BACKEND = 'amqp://127.0.0.1:5672'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = "Europe/Bucharest"
+CELERY_ACKS_LATE = True
+CELERYD_PREFETCH_MULTIPLIER = 1
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
