@@ -1,17 +1,22 @@
 # Price scraping tasks
 
-from app1.models import Scrape
-# import scrape_ops
-from celery import shared_task
+from app1.models import Scrape, WatchItem
+# from celery import shared_task
 
 import bs4
 import requests  # used to actually download the web page content
-import datetime
+# import datetime
+from django.utils import timezone
 import json
-# import lxml
+# # import lxml
 import sqlite3 as sql
 
-DB_PATH = "/db.sqlite3"
+# import sys
+# from proiect import celery_app
+# from celery.schedules import crontab
+# # from celery.task import periodic_task
+
+DB_PATH = "/home/george/django/proiect/db.sqlite3"
 
 
 def read_watchlist():
@@ -50,7 +55,7 @@ def price_scrape(p_url):
     res.raise_for_status()  # Will raise an error depending on HTTP response code.
     soup = bs4.BeautifulSoup(res.text, "html.parser")  # Returns a "beautiful soup" object.
 
-    elems = []
+    # elems = []
 
     price = soup.find("div", {"class": "w-100"})  # Get <div> container for price
     if price is not None:
@@ -61,28 +66,28 @@ def price_scrape(p_url):
             price = "None"
     else:
         price = "None"
-    elems.append(price)  # scraped price
+    # elems.append(price)  # scraped price
 
-    date = datetime.datetime.now()  # get current date
-    dateNow = date.strftime("%d/%m/%Y")  # format date as needed
-    elems.append(dateNow)  # date of scrape
+    # date = datetime.datetime.now()  # get current date
+    # dateNow = date.strftime("%d/%m/%Y")  # format date as needed
+    # elems.append(dateNow)  # date of scrape
 
-    timeNow = date.strftime("%H:%M:%S")  # get time of day
-    elems.append(timeNow)  # time of scrape
+    # timeNow = date.strftime("%H:%M:%S")  # get time of day
+    # elems.append(timeNow)  # time of scrape
 
-    return elems
+    # elems.append(date)
+    return price
 
 
-@shared_task(serializer='json')
+# @shared_task(serializer='json')
 def save_function(scrapeItem):
     print('[!] Starting "save_function()"')
 
     try:
         scrapeObject = Scrape(
-            item=scrapeItem['item'],
+            item=WatchItem.objects.get(id=scrapeItem['item']),
             price=scrapeItem['price'],
-            date=scrapeItem['date'],
-            time=scrapeItem['time']
+            dateTime=scrapeItem['dateTime']
         )
         scrapeObject.save()
     except Exception as e:
@@ -92,28 +97,27 @@ def save_function(scrapeItem):
     
     return print('[!] Finished "save_function()"')
 
-@shared_task
+# @shared_task
 def scrape_prices():
     try:
         # Populate list with records from 'app1_watchitem' table
         watchlist = read_watchlist()
-        print(watchlist)
         
         for item in watchlist:  # item should be (item ID, item name, item URL, item's user ID)
             # Call price scraping function with item URL as parameter
-            scrape = price_scrape(item(2))  # 'scrape' should be [product price, current date, current time]
-            scrapeInfo = list(item) + list(scrape)  # 'scrapeInfo' should be [item ID, item name, item URL, item's user ID, prod. price, date, time]
+            scrapedPrice = price_scrape(item[2])  # 'scrape' should be [product price, current date, current time]
+            # scrapeInfo = list(item) + list(scrape)  # 'scrapeInfo' should be [item ID, item name, item URL, item's user ID, prod. price, dateTime]
 
+            dateTime = timezone.now()
+            # watchItem = 
             scrapeItem = {
-                    "item": scrapeInfo[0],
-                    "price": scrapeInfo[4],
-                    "date": scrapeInfo[5],
-                    "time": scrapeInfo[6]
+                    "item": item[0],
+                    "price": scrapedPrice.replace('.',''),
+                    "dateTime": dateTime
                 }
 
-            return save_function(scrapeItem)
-            # write_scrape(scrapeInfo)
+            print(item)
+            save_function(scrapeItem)
     except Exception as e:
         print('The scraping job failed. See exception:')
         print(e)
-    

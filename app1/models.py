@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.db.models.fields import DateTimeField
+import datetime
 
 
 class WatchItem(models.Model):
@@ -21,8 +23,8 @@ class Scrape(models.Model):
     """
     item = models.ForeignKey('WatchItem', on_delete=models.CASCADE)
     price = models.PositiveIntegerField()
-    date = models.DateField()
-    time = models.TimeField(default=None)
+    dateTime = models.DateTimeField(default=datetime.datetime.now)
+    # time = models.TimeField(default=None)
 
     def __str__(self):
         return f"{self.item} {self.price}: {self.date} {self.time}"

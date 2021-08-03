@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import query
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, UpdateView
@@ -11,6 +12,11 @@ class WatchlistHomeIndex(LoginRequiredMixin, ListView):
     """
     model = WatchItem
     template_name = 'app1/watchlist_index.html'
+
+    def get_queryset(self):
+        queryset = super(WatchlistHomeIndex, self).get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        return queryset
 
 
 class WatchlistAddItem(LoginRequiredMixin, CreateView):
@@ -33,6 +39,12 @@ class WatchlistUpdateItem(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('app1:watchlist_index')
+
+
+class ProductPriceHistory(LoginRequiredMixin):
+    ### TODO: try putting scraping code here & making a view similar to
+    ###       what the guy in the codeburs.io tutorial is doing
+    pass
 
 
 class ScrapeAddInfo(CreateView):

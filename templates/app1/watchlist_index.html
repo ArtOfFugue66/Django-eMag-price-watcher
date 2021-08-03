@@ -8,7 +8,8 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>URL</th>
-                <th>Action</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -19,6 +20,7 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.url }}</td>
                     <td><a href="{% url 'app1:edit_item' item.id %}">Change</a></td>
+                    <td><a href="{% url 'app1:price_history' item.id %}">History</a></td>
                 </tr>
             {% endfor %}
         </tbody>

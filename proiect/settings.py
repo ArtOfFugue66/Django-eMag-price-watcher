@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app1.apps.App1Config',
     'userprofile',
-    'django_celery_results',
+    'django_q',
 ]
 
 # Run on every request
@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Bucharest'
 
 USE_I18N = True
 
@@ -134,17 +134,29 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+# Django-Q settings
+Q_CLUSTER = {
+    "name": "proiect",
+    "orm": "default"
+}
+
+
+
 # Celery settings
 # https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html
 
-CELERY_BROKER_URL = 'amqp://127.0.0.1:5672'
-CELERY_RESULT_BACKEND = 'amqp://127.0.0.1:5672'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = "Europe/Bucharest"
-CELERY_ACKS_LATE = True
-CELERYD_PREFETCH_MULTIPLIER = 1
+# amqp = 'amqp://rabbit:abcd12!!@127.0.0.1:5672'
+# redis = 'redis://:abcd12!!@127.0.0.1:6379'
+# BROKER_URL = redis
+# CELERY_BROKER_URL = redis
+# CELERY_RESULT_BACKEND = redis
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = "Europe/Bucharest"
+# CELERY_ACKS_LATE = True
+# CELERYD_PREFETCH_MULTIPLIER = 1
+# CELERY_STORE_ERRORS_EVEN_IF_IGNORED = True
 
 
 

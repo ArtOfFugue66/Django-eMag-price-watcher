@@ -1,0 +1,53 @@
+[2021-08-02 20:55:03,030: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-08-02 20:55:03,050: INFO/MainProcess] mingle: searching for neighbors
+[2021-08-02 20:55:04,090: INFO/MainProcess] mingle: all alone
+[2021-08-02 20:55:04,115: WARNING/MainProcess] /home/george/.local/lib/python3.9/site-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory
+            leak, never use this setting in production environments!
+  warnings.warn('''Using settings.DEBUG leads to a memory
+[2021-08-02 20:55:04,116: INFO/MainProcess] celery@ubuntu ready.
+[2021-08-02 21:10:01,092: INFO/MainProcess] sync with celery@worker1.ubuntu
+[2021-08-02 21:10:41,127: INFO/MainProcess] sync with celery@worker1.ubuntu
+[2021-08-02 21:19:54,332: INFO/MainProcess] sync with celery@worker1.ubuntu
+[2021-08-02 21:22:20,892: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/george/.local/lib/python3.9/site-packages/celery/worker/consumer/consumer.py", line 318, in start
+    blueprint.start(self)
+  File "/home/george/.local/lib/python3.9/site-packages/celery/bootsteps.py", line 119, in start
+    step.start(parent)
+  File "/home/george/.local/lib/python3.9/site-packages/celery/worker/consumer/consumer.py", line 599, in start
+    c.loop(*c.loop_args())
+  File "/home/george/.local/lib/python3.9/site-packages/celery/worker/loops.py", line 83, in asynloop
+    next(loop)
+  File "/home/george/.local/lib/python3.9/site-packages/kombu/asynchronous/hub.py", line 364, in create_loop
+    cb(*cbargs)
+  File "/home/george/.local/lib/python3.9/site-packages/kombu/transport/base.py", line 238, in on_readable
+    reader(loop)
+  File "/home/george/.local/lib/python3.9/site-packages/kombu/transport/base.py", line 220, in _read
+    drain_events(timeout=0)
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/connection.py", line 508, in drain_events
+    while not self.blocking_read(timeout):
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/connection.py", line 514, in blocking_read
+    return self.on_inbound_frame(frame)
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/method_framing.py", line 55, in on_frame
+    callback(channel, method_sig, buf, None)
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/connection.py", line 520, in on_inbound_method
+    return self.channels[channel_id].dispatch_method(
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/abstract_channel.py", line 145, in dispatch_method
+    listener(*args)
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/connection.py", line 649, in _on_close
+    self._x_close_ok()
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/connection.py", line 664, in _x_close_ok
+    self.send_method(spec.Connection.CloseOk, callback=self._on_close_ok)
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/abstract_channel.py", line 59, in send_method
+    conn.frame_writer(1, self.channel_id, sig, args, content)
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/method_framing.py", line 189, in write_frame
+    write(view[:offset])
+  File "/home/george/.local/lib/python3.9/site-packages/amqp/transport.py", line 305, in write
+    self._write(s)
+ConnectionResetError: [Errno 104] Connection reset by peer
+[2021-08-02 21:22:32,032: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2021-08-02 21:22:32,061: INFO/MainProcess] mingle: searching for neighbors
+[2021-08-02 21:22:33,125: INFO/MainProcess] mingle: all alone
+[2021-08-02 21:22:38,134: INFO/MainProcess] missed heartbeat from celery@worker1.ubuntu
+[2021-08-02 21:23:14,626: INFO/MainProcess] sync with celery@worker1.ubuntu
+[2021-08-02 22:09:29,543: INFO/MainProcess] Events of group {task} enabled by remote.
