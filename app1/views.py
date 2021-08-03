@@ -40,18 +40,27 @@ class WatchlistUpdateItem(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('app1:watchlist_index')
 
+import plotly.offline as opy
+import plotly.graph_objs as go
+from django.views.generic import TemplateView
+from django.shortcuts import render
 
-class ProductPriceHistory(LoginRequiredMixin):
-    ### TODO: try putting scraping code here & making a view similar to
-    ###       what the guy in the codeburs.io tutorial is doing
-    pass
+# def GraphView(request, userID):
+class GraphView(LoginRequiredMixin, TemplateView):
+    def get(self, request, pk):
+        # Fetch scraped prices for the selected product
+        scrapes = Scrape.objects.filter(item=pk)
+        pricesQS, dateTimesQS = scrapes.values('price'), scrapes.values('dateTime')
+        
+        prices, dateTimes = [], []
+        for priceDict in pricesQS:
+            prices.append(priceDict['price'])
+        for dateTimeDict in dateTimesQS:
+            dateTimes.append(dateTimeDict['dateTime'])
+                
+        x_data = dateTimes
+        y_data = prices
+        # plot_div = opy.plot([go.Scatter(x=x_data, y=y_data, mode="lines", name='Price history', opacity=0.8, marker_color='red')], output_type='div')
+        plot_div2 = opy.plot([go.Scatter(x=x_data, y=y_data, mode="lines", name='Price history', opacity=0.8, marker_color='blue')], output_type='div')
 
-
-class ScrapeAddInfo(CreateView):
-    model = Scrape
-    fields = '__all__'
-    template_name = 'app1/scrape_page.html'
-
-    # def get_success_url(self):
-    #     return reverse('app1:watchlist_index')
-
+        return render(request, "graph.html", context={'plot_div': plot_div2})

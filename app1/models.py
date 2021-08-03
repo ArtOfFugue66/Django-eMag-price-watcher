@@ -27,4 +27,4 @@ class Scrape(models.Model):
     # time = models.TimeField(default=None)
 
     def __str__(self):
-        return f"{self.item} {self.price}: {self.date} {self.time}"
+        return f"{self.item} {self.price}: {self.dateTime}"

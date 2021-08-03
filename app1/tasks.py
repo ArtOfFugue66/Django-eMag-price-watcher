@@ -108,7 +108,7 @@ def scrape_prices():
             scrapedPrice = price_scrape(item[2])  # 'scrape' should be [product price, current date, current time]
             # scrapeInfo = list(item) + list(scrape)  # 'scrapeInfo' should be [item ID, item name, item URL, item's user ID, prod. price, dateTime]
 
-            dateTime = timezone.now()
+            dateTime = timezone.localtime(timezone.now())
             # watchItem = 
             scrapeItem = {
                     "item": item[0],
