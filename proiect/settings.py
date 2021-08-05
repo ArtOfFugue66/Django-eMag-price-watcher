@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app1.apps.App1Config',
+    'app1',
     'userprofile',
     'django_q',
 ]
@@ -115,13 +115,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Bucharest'
-
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+TIME_ZONE = 'Europe/Bucharest'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -137,7 +137,9 @@ STATICFILES_DIRS = [
 # Django-Q settings
 Q_CLUSTER = {
     "name": "proiect",
-    "orm": "default"
+    "orm": "default",
+    "retry": 20,
+    "timeout": 15
 }
 
 
