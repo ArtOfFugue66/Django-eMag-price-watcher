@@ -10,12 +10,12 @@
 
 <body>
     {% block content %}
-            <div class="uk-align-center">
+            <div>
                 <form method="POST">
                     <fieldset>
                         {% csrf_token %}
-                        <legend class="uk-legend">Add item to watchlist</legend>
-                        <div style="display:inline-block">{{form}}</div>
+                        <legend class="uk-legend">Edit item details</legend>
+                        <div class="uk-align-center" style="display:inline-block">{{form}}</div>
                         <button type="submit" class="uk-button-primary">Add</button>
                     </fieldset>
                 </form>

@@ -7,11 +7,14 @@
 </head>
 
 <body>
-<nav class="uk-navbar uk-navbar-container" uk-navbar="mode: click">
-    <div class="uk-navbar-left">
+<nav class="uk-navbar uk-navbar-container" uk-navbar="mode:click">
+    
+    <div class="uk-navbar-center">
         {% if request.user.is_authenticated %}
             <ul class="uk-navbar-nav">
-                <li class="uk-active"> <a class="" href="{% url 'app1:watchlist_index' %}">Watchlist</a> </li>
+                <li class="uk-active"> 
+                    <a class="" href="{% url 'app1:watchlist_index' %}">Watchlist</a> 
+                </li>
             </ul>
             {% if request.user.first_name and request.user.last_name %}
             <ul class="uk-navbar-nav">
@@ -21,28 +24,32 @@
             </ul>
             {% else %}
                 <ul class="uk-navbar-nav">
-                    <li class="uk-active"> <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.username }}</a> </li>
+                    <li class="uk-active"> 
+                        <a href="{% url 'userprofile:update_profile' request.user.id %}">{{ request.user.username }}</a> 
+                    </li>
                 </ul>
             {% endif %}
         {% endif %}
+
         {% if request.user.is_authenticated %}
             <ul class="uk-navbar-nav">
-                <li class="uk-active"> <a href="{% url 'app1:add_item' %}">Add to watchlist</a> </li>
+                <li class="uk-active"> 
+                    <a href="{% url 'logout' %}">Log out</a> 
+                </li>
             </ul>
         {% endif %}
-        {% if request.user.is_authenticated %}
-            <ul class="uk-navbar-nav">
-                <li class="uk-active"> <a href="{% url 'logout' %}">Log out</a> </li>
-            </ul>
-        {% endif %}
+
         {% if request.user.is_authenticated is False %}
             <ul class="uk-navbar-nav">
-                <li class="uk-active"> <a href="{% url 'userprofile:new_account' %}">Register</a> </li>
+                <li class="uk-active"> 
+                    <a href="{% url 'userprofile:new_account' %}">Register</a> 
+                </li>
             </ul>
         {% endif %}
     </div>
 </nav>
 <div>
+    <div class="uk-divider-icon"></div>
     {% block content %}
 
     {% endblock %}

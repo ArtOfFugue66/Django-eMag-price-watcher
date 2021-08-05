@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app1.apps.App1Config',
+    'app1',
     'userprofile',
     'django_q',
 ]
@@ -137,7 +137,9 @@ STATICFILES_DIRS = [
 # Django-Q settings
 Q_CLUSTER = {
     "name": "proiect",
-    "orm": "default"
+    "orm": "default",
+    "retry": 20,
+    "timeout": 15
 }
 
 
