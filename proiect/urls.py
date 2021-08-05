@@ -22,7 +22,7 @@ import userprofile.urls
 
 urlpatterns = [
     path('', include('django.contrib.auth.urls'), {'next_page': '/'}, name='login'),
-    path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('', LoginView.as_view(template_name='registration/login.html', redirect_authenticated_user=True), name='login'),
     path('admin/', admin.site.urls),
     path('watchlist/', include('app1.urls')),
     path('profile/', include('userprofile.urls'))
