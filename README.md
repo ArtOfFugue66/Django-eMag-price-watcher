@@ -1,6 +1,7 @@
 # Django price scraper for 'emag.ro'
 Web app built on Django framework for monitoring prices of products from 'emag.ro'.
-
+## Demo
+![Demo gif](demo.gif)
 # ~~Django + Celery + RabbitMQ~~ (too much hassle)
 ### ~~Tutorial: https://codeburst.io/making-a-web-scraping-application-with-python-celery-and-django-23162397c0b6~~
 - ~~OS: __Ubuntu 21.04__~~
